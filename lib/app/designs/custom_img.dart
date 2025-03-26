@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomImg extends StatelessWidget {
   final String imgUrl;
-  double? imgHeight;
-  double? imgWidth;
-  BoxFit? imgFit;
-  CustomImg({
+  final double? imgHeight;
+  final double? imgWidth;
+  final BoxFit? imgFit;
+  const CustomImg({
     Key? key,
     required this.imgUrl,
     this.imgHeight,

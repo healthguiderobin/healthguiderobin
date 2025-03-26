@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 class DropdownDesign extends StatelessWidget {
   final String title;
-  double? ddWidth;
-  DropdownDesign({
+  final double? ddWidth;
+  const DropdownDesign({
     Key? key,
     required this.title,
     this.ddWidth,

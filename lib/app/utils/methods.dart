@@ -2,20 +2,19 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
-import '../data/clrs.dart';
 import '../data/prefs.dart';
 import '../designs/custom_btn.dart';
 import '../routes/app_pages.dart';
 import '../widgets/helper.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class Methods {
   static void showSnackbar({
@@ -60,7 +59,6 @@ class Methods {
       Future.delayed(
         const Duration(seconds: 2),
         () => Get.offAllNamed(Routes.LOGIN),
-        // () => Get.offAllNamed(Login2Screen.routeName),
       );
     }
   }
@@ -75,31 +73,6 @@ class Methods {
   }
 
   static void hideLoading() => EasyLoading.dismiss();
-
-  static String getMapIcon(int cID) {
-    switch (cID) {
-      case 1:
-        return 'assets/imgs/shores.png';
-      case 2:
-        return 'assets/imgs/heritage.png';
-      case 3:
-        return 'assets/imgs/thrill.png';
-      case 4:
-        return 'assets/imgs/bazaar.png';
-      case 5:
-        return 'assets/imgs/playground.png';
-      case 6:
-        return 'assets/imgs/flavors.png';
-      case 7:
-        return 'assets/imgs/oasis.png';
-      case 8:
-        return 'assets/imgs/spotlight.png';
-      case 9:
-        return 'assets/imgs/zen.png';
-      default:
-        return 'assets/imgs/pin.png';
-    }
-  }
 
   static DropdownMenuItem<dynamic> getDDMenuItem({
     required dynamic item,
@@ -277,8 +250,8 @@ class Methods {
                     },
                   ),
             Positioned(
-              left: 7.w,
-              top: 19.h,
+              left: 10.w,
+              top: 10.h,
               child: InkWell(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
@@ -289,7 +262,7 @@ class Methods {
                   width: 28.w,
                   fit: BoxFit.cover,
                   colorFilter: ColorFilter.mode(
-                    AppClrs.kFFFBF4,
+                    Colors.white,
                     BlendMode.srcIn,
                   ),
                 ),
@@ -308,36 +281,12 @@ class Methods {
     );
   }
 
-  static Future<void> openMap(double latitude, double longitude) async {
-    String googleUrl =
-        'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude&zoom=14';
-    // String appleUrl = 'https://maps.apple.com/?ll=$latitude,$longitude&z=14';
-    // Uri aUri = Uri.parse(appleUrl);
-    Uri gUri = Uri.parse(googleUrl);
-    // if (Platform.isIOS) {
-    //   if (await canLaunchUrl(aUri)) {
-    //     await launchUrl(
-    //       aUri,
-    //       mode: LaunchMode.externalApplication,
-    //     );
-    //   } else {
-    //     showSnackbar(
-    //       msg: 'Could not open iOS Map Application',
-    //     );
-    //   }
-    // }
-    // if (Platform.isAndroid) {
-    if (await canLaunchUrl(gUri)) {
-      await launchUrl(
-        gUri,
-        mode: LaunchMode.externalApplication,
-      );
-    } else {
-      showSnackbar(
-        msg: 'Could not open Google Map Application',
-      );
-    }
-    // }
+  static int createUniqueId() {
+    Random rnd = Random();
+    int min = 1111111;
+    int max = 9999999;
+    int r = min + rnd.nextInt(max - min);
+    return r;
   }
 
   static String formatTimestamp(Timestamp timestamp) {
@@ -354,30 +303,9 @@ class Methods {
     }
   }
 
-  static bool isDateExpired(String dateString) {
-    // Parse the given date string (assumes the date string is in ISO 8601 format)
-    DateTime responseDate = DateTime.parse(dateString);
-    DateTime resDateWithoutTime = DateTime(
-      responseDate.year,
-      responseDate.month,
-      responseDate.day,
-    );
-
-    // Get the current date (ignore the time part for comparison)
-    DateTime currentDate = DateTime.now();
-    DateTime currentDateWithoutTime = DateTime(
-      currentDate.year,
-      currentDate.month,
-      currentDate.day,
-    );
-
-    // Check if the response date is today or in the future
-    if (resDateWithoutTime.isAfter(currentDateWithoutTime) ||
-        resDateWithoutTime.isAtSameMomentAs(currentDateWithoutTime)) {
-      return true; // Allow access (valid)
-    }
-
-    // If the date is before today (yesterday or earlier), restrict access
-    return false; // Deny access
+  static Future<String> getDeviceId() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    return androidInfo.id;
   }
 }

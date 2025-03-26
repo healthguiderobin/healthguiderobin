@@ -1,12 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class OnboardController extends GetxController {
-  //TODO: Implement OnboardController
+import '../../../models/onboard.dart';
 
-  final count = 0.obs;
+class OnboardController extends GetxController {
+  final PageController pageCon = PageController();
+  List<OnboardModel> onboards = [];
+  RxInt pageNo = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    onboards = Get.arguments ?? [];
   }
 
   @override
@@ -18,6 +22,4 @@ class OnboardController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

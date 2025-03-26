@@ -2,31 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../data/assets.dart';
 import '../data/clrs.dart';
 
 class CustomField extends StatefulWidget {
   final TextEditingController textCon;
-  String? prefixIcon;
-  Widget? suffixIcon;
+  final String? prefixIcon;
+  final Widget? suffixIcon;
   final String hintText;
-  bool? isPassField;
-  bool? isEnabled;
-  TextInputType? inputType;
-  double? width, height;
-  FontWeight? txtFontWeight;
-  Color? fillClr;
-  Color? brdrClr;
-  double? txtSize;
-  EdgeInsets? cPadding;
-  Color? txtClr;
-  int? maxLine;
-  int? maxChar;
-  bool? autoFocusFlag;
-  InputBorder? inputBrdr;
-  TextInputAction? customAction;
-  Function(String)? onChangedFn;
-  CustomField(
+  final bool? isPassField;
+  final bool? isEnabled;
+  final TextInputType? inputType;
+  final double? width, height;
+  final FontWeight? txtFontWeight;
+  final Color? fillClr;
+  final Color? brdrClr;
+  final double? txtSize;
+  final EdgeInsets? cPadding;
+  final Color? txtClr;
+  final int? maxLine;
+  final int? maxChar;
+  final bool? autoFocusFlag;
+  final InputBorder? inputBrdr;
+  final TextInputAction? customAction;
+  final Function(String)? onChangedFn;
+  const CustomField(
       {Key? key,
       required this.textCon,
       this.prefixIcon,
@@ -121,7 +120,6 @@ class _CustomFieldState extends State<CustomField> {
             fontSize: widget.txtSize ?? 16.sp,
             fontWeight: widget.txtFontWeight,
             color: AppClrs.kPrimaryClr.withOpacity(0.3),
-            fontFamily: AppAssets.kMontserrat,
           ),
           suffixIcon: widget.suffixIcon ??
               (widget.isPassField == null

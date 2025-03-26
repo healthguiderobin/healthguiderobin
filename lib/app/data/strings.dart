@@ -1,29 +1,20 @@
 class AppStrings {
   // COLLECTION NAMES
-  // metadata
-  static String kMetadata = 'metadata';
-  // users
   static String kUsers = 'users';
-  // onboardScreens
-  static String kOnboardScreens = 'onboardScreens';
-  // welcomeBanner
-  static String kWelcomeBanner = 'welcomeBanner';
-  // categories
-  static String kCategories = 'categories';
+  // onboards
+  static String kOnboards = 'onboards';
+  // banners
+  static String kBanners = 'banners';
+  // specialities
+  static String kSpecialities = 'specialities';
+  // doctors
+  static String kDoctors = 'doctors';
   // posts
   static String kPosts = 'posts';
-  // postsForMap
-  static String kPostsForMap = 'postsForMap';
   // latestPosts
   static String kTopPosts = 'topPosts';
   // highlights
   static String kHighlights = 'highlights';
-  // cities
-  static String kCities = 'cities';
-  // levelsByCategory
-  static String kLevelsByCategory = 'levelsByCategory';
-  // typesByCategory
-  static String kTypesByCategory = 'typesByCategory';
   // questions
   static String kQuestions = 'questions';
   // comments
@@ -35,68 +26,12 @@ class AppStrings {
   // supports
   static String kSupports = 'supports';
 
-  // DOCUMENT NAMES
-  // levels
-  static String kLevels = 'levels';
-  // types
-  static String kTypes = 'types';
-
-  // postsCounter
-  static String kPostsCounter = 'postsCounter';
-
-  // FIELD NAMES
-  // lastPostId
-  static String kLastPostId = 'lastPostId';
-
   // images
   static String kAppLogo = 'assets/app_logo.png';
 
   // upload image
   static String kUploadImage =
       'https://api.cloudinary.com/v1_1/dld5uefxt/upload';
-
-  // APIs
-  // static String kBaseUrl = 'https://api.offthebeatentrack.r-y-x.net/api/';
-  static String kBaseUrl = 'https://api.offthebeatentrackuae.com/api/';
-  static String kAPIVersion = 'v1/';
-  static String kMember = 'member/';
-  static String kLoginAPI = 'member-login';
-  static String kLoginv2 = 'member-Loginv2';
-  static String kRegisterAPI = 'member-registration';
-  static String kForgetPassword = 'ForgetPassword';
-  static String kMemberUpdate = 'member-Update';
-  static String kFileUpload = 'uploadFile';
-  static String kAllOnboards = 'GetAllOnBoardScreens';
-  static String kAllCategories = 'GetAllCategory';
-  static String kPostCollection = 'PostCollection';
-  static String kPostDetails = 'Post-details/';
-  static String kGetAllUtility = 'GetAllUtility';
-  static String kGetCategoryWiseFilter = 'GetCategoryWiseFilterv2';
-  static String kGetAllCountry = 'GetAllCountry';
-  static String kGetAllCityByCategoryId = 'GetAllCity';
-  static String kGetAllCityByCountryId = 'GetAllCityByCountryId';
-  static String kWishListPosts = 'WishListPostCollection/';
-  static String kWishlistAddRemove = 'WishListAddRemove';
-  static String kGetAllQst = 'getAllQst';
-  static String kSaveComments = 'SaveComments';
-  static String kSaveQst = 'SaveQst';
-  static String kMapCategories = 'GetAllCategoryMap';
-  static String kNotifications = 'ShowNotifications/';
-  static String kNotificationClear = 'NotificationClear/';
-  static String kGetAllSubscriptionItem = 'GetAllSubscriptionItem';
-  static String kGetAllProductOffer = 'GetAllProductOffer';
-  static String kGetAllKey = 'GetAllKey';
-  static String kGetCheckOut = 'GetCheckOut';
-  static String kCancelSubscription = 'CancelSubscription';
-  static String kUpdateMemberStatus = 'GetSuccessStatus';
-  static String kVisitMember = 'Visitmember';
-  static String kDeleteMember = 'member-Delete';
-  // get all faqs
-  static String kGetAllFAQ = 'GetAlFAQ';
-  // get help requests
-  static String kGetuserReport = 'GetuserReport';
-  // report
-  static String kPostuserReport = 'PostuserReport';
 
   // error msgs
   static String kWentWrong = 'Something went wrong';
@@ -109,9 +44,6 @@ class AppStrings {
   static String kPlayStoreUrl =
       'https://play.google.com/store/account/subscriptions';
   static String kAppStoreUrl = 'https://apps.apple.com/account/subscriptions';
-
-  static String kSecuritykey =
-      'sk_test_51MEBBUIqv55EFXn7eO9ouszyvvu25AxNKdfDqtPw9OGtij6CbQj6yI0GaFuRs31yjIQnUMnS3lhbma5r1P1uuLNX00xNrYEvL9';
 
   // privacy policy
   static String kPrivacyPolicy = '''

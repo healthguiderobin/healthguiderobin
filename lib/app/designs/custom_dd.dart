@@ -8,8 +8,8 @@ class CustomDD extends StatelessWidget {
   final String hintTxt;
   final List<DropdownMenuItem<dynamic>>? items;
   final Function(dynamic) onChangedFn;
-  double? ddWidth;
-  CustomDD({
+  final double? ddWidth;
+  const CustomDD({
     Key? key,
     required this.givenValue,
     required this.hintTxt,

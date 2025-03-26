@@ -9,15 +9,15 @@ import '../widgets/helper.dart';
 class CustomBtn extends StatelessWidget {
   final VoidCallback onPressedFn;
   final String btnTxt;
-  double? txtSize;
-  double? btnBorderRadius;
-  FontWeight? txtWeight;
-  Size? btnSize;
-  Color? btnColor;
-  Color? txtColor;
-  Color? btnBorderColor;
-  String? btnIcon;
-  CustomBtn({
+  final double? txtSize;
+  final double? btnBorderRadius;
+  final FontWeight? txtWeight;
+  final Size? btnSize;
+  final Color? btnColor;
+  final Color? txtColor;
+  final Color? btnBorderColor;
+  final String? btnIcon;
+  const CustomBtn({
     Key? key,
     required this.onPressedFn,
     required this.btnTxt,
@@ -41,7 +41,7 @@ class CustomBtn extends StatelessWidget {
           btnSize ?? Size(388.w, 56.h),
         ),
         backgroundColor: WidgetStateProperty.all<Color>(
-          btnColor ?? AppClrs.k2B5374,
+          btnColor ?? AppClrs.kPrimaryClr,
         ),
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(
@@ -51,7 +51,7 @@ class CustomBtn extends StatelessWidget {
                   ? btnBorderColor!
                   : btnColor != null
                       ? btnColor!
-                      : AppClrs.k2B5374,
+                      : AppClrs.kPrimaryClr,
               width: 1.0,
             ),
           ),
@@ -65,7 +65,7 @@ class CustomBtn extends StatelessWidget {
               'assets/svgs/${btnIcon!}.svg',
               fit: BoxFit.fill,
               colorFilter: ColorFilter.mode(
-                Colors.white,
+                txtColor ?? AppClrs.kWhiteClr,
                 BlendMode.srcIn,
               ),
             ),
@@ -75,7 +75,7 @@ class CustomBtn extends StatelessWidget {
             minFontSize: 5,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: txtColor ?? Colors.white,
+              color: txtColor ?? AppClrs.kWhiteClr,
               fontSize: txtSize ?? 15.sp,
               fontWeight: txtWeight ?? FontWeight.w900,
             ),

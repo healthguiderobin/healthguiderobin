@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1068342680940",
+    "project_id": "health-guide-robin",
+    "storage_bucket": "health-guide-robin.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068342680940:android:a04c000b776f789d2a6749",
+        "android_client_info": {
+          "package_name": "com.healthguiderobin.healthguiderobin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCX3OVmE4VQirWZrR1g_HIoFHJ_2h8LNg0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
