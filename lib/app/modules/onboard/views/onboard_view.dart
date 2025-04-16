@@ -1,3 +1,4 @@
+import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -39,44 +40,47 @@ class OnboardView extends GetView<OnboardController> {
                         imgFit: BoxFit.cover,
                       ),
                       Positioned(
-                        bottom: 150.h,
+                        bottom: 100.h,
                         left: 20.w,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              width: 300.w,
+                            BorderedText(
+                              strokeWidth: 1.0,
+                              strokeColor: Colors.white,
                               child: Text(
                                 e.title,
                                 style: TextStyle(
                                   fontSize: 28.sp,
-                                  color: AppClrs.kPrimaryTxtClr,
+                                  color: AppClrs.kPrimaryClr,
                                   fontWeight: FontWeight.w900,
                                 ),
                               ),
                             ),
                             addH(10.h),
-                            SizedBox(
-                              width: Get.width - 60.w,
+                            BorderedText(
+                              strokeWidth: 1.0,
+                              strokeColor: Colors.white,
                               child: Text(
                                 e.subtitle,
                                 textAlign: TextAlign.justify,
                                 style: TextStyle(
                                   fontSize: 20.sp,
-                                  color: AppClrs.kPrimaryTxtClr,
+                                  color: AppClrs.kAccentClr,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ),
                             addH(10.h),
-                            SizedBox(
-                              width: 300.w,
+                            BorderedText(
+                              strokeWidth: 1.0,
+                              strokeColor: Colors.white,
                               child: Text(
                                 e.description,
                                 textAlign: TextAlign.justify,
                                 style: TextStyle(
                                   fontSize: 15.sp,
-                                  color: AppClrs.kPrimaryTxtClr,
+                                  color: AppClrs.kAccentClr,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),

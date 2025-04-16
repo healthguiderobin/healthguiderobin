@@ -1,6 +1,7 @@
 class PostModel {
   final String id;
   final String title;
+  final String body;
   final String videoThumb;
   final String videoLink;
   final List<String> imageList;
@@ -9,6 +10,7 @@ class PostModel {
   PostModel({
     required this.id,
     required this.title,
+    required this.body,
     required this.videoThumb,
     required this.videoLink,
     required this.imageList,
@@ -19,6 +21,7 @@ class PostModel {
     return PostModel(
       id: json['id'] ?? '',
       title: json['title'] ?? '',
+      body: json['body'] ?? '',
       videoThumb: json['videoThumb'] ?? '',
       videoLink: json['videoLink'] ?? '',
       imageList: List<String>.from(json['imageList'] ?? []),

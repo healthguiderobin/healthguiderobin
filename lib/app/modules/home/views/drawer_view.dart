@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +13,7 @@ import '../../../models/user.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/methods.dart';
 import '../../../widgets/helper.dart';
+import '../controllers/profile_controller.dart';
 
 class DrawerView extends StatefulWidget {
   DrawerView({
@@ -23,30 +25,20 @@ class DrawerView extends StatefulWidget {
 }
 
 class _DrawerViewState extends State<DrawerView> {
+  final controller = Get.find<ProfileController>();
   final List<String> _menuIcons = [
+    'assets/svgs/about.svg',
     'assets/svgs/support.svg',
-    'assets/svgs/support.svg',
-    'assets/svgs/support.svg',
-    'assets/svgs/support.svg',
-    'assets/svgs/support.svg',
-
-    // 'assets/svgs/about.svg',
-    // 'assets/svgs/support.svg',
-    // 'assets/svgs/faq.svg',
-    // 'assets/svgs/privacy.svg',
-    // 'assets/svgs/terms.svg',
+    'assets/svgs/question.svg',
+    'assets/svgs/privacy.svg',
+    'assets/svgs/terms.svg',
   ];
   final List<VoidCallback> _menuFns = [
-    () => Get.toNamed(''),
-    () => Get.toNamed(''),
-    () => Get.toNamed(''),
-    () => Get.toNamed(''),
-    () => Get.toNamed(''),
-    // () => Get.toNamed(Routes.ABOUT_US),
-    // () => Get.toNamed(Routes.SUPPORT_CENTER),
-    // () => Get.toNamed(Routes.FAQ),
-    // () => Get.toNamed(Routes.PRIVACY),
-    // () => Get.toNamed(Routes.TERMS),
+    () => Get.toNamed(Routes.ABOUT_US),
+    () => Get.toNamed(Routes.SUPPORT_CENTER),
+    () => Get.toNamed(Routes.FAQ),
+    () => Get.toNamed(Routes.PRIVACY),
+    () => Get.toNamed(Routes.TERMS),
   ];
 
   final List<String> _menuItems = const [
@@ -57,20 +49,15 @@ class _DrawerViewState extends State<DrawerView> {
     'Terms and Conditions',
   ];
 
-  String usrDP = '';
-  late UserModel usrModel;
-
   @override
   initState() {
     super.initState();
-    usrModel = Preference.fetchUserDetails();
-    // usrDP = Preference.getUserDP();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppClrs.kSecondaryClr,
+      backgroundColor: AppClrs.kPrimaryClr,
       body: Container(
         width: 360.w,
         padding: EdgeInsets.only(
@@ -88,7 +75,7 @@ class _DrawerViewState extends State<DrawerView> {
                   InkWell(
                     onTap: () => Methods.openImageView(
                       context,
-                      imgUrl: usrDP,
+                      imgUrl: controller.dpLink.value,
                     ),
                     child: Container(
                       width: 60.w,
@@ -100,7 +87,7 @@ class _DrawerViewState extends State<DrawerView> {
                       ),
                       child: ClipOval(
                         child: CustomImg(
-                          imgUrl: usrDP,
+                          imgUrl: controller.user.photoURL,
                           imgFit: BoxFit.cover,
                         ),
                       ),
@@ -112,7 +99,7 @@ class _DrawerViewState extends State<DrawerView> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        usrModel.name,
+                        controller.user.name,
                         style: TextStyle(
                           fontSize: 18.sp,
                           color: Colors.white,
@@ -120,9 +107,10 @@ class _DrawerViewState extends State<DrawerView> {
                         ),
                       ),
                       SizedBox(
-                        width: 195.w,
-                        child: Text(
-                          usrModel.email,
+                        width: 200.w,
+                        child: AutoSizeText(
+                          controller.user.email,
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: Colors.white,
@@ -188,25 +176,26 @@ class _DrawerViewState extends State<DrawerView> {
               ),
             ),
             addH(20.h),
-            // CustomBtn(
-            //   onPressedFn: () => AwesomeDialog(
-            //     context: context,
-            //     dialogType: DialogType.warning,
-            //     title: 'Logout',
-            //     desc: 'Are you sure want to logout?',
-            //     btnCancelOnPress: () {},
-            //     btnOkOnPress: () {
-            //       // AuthService.signOut();
-            //       Preference.logoutFn();
-            //       Get.offAllNamed(Routes.LOGIN);
-            //     },
-            //   ).show(),
-            //   btnTxt: 'Sign Out',
-            //   txtColor: Colors.white,
-            //   txtWeight: FontWeight.w400,
-            //   btnIcon: 'logout',
-            //   btnSize: Size(150.w, 56.h),
-            // ),
+            CustomBtn(
+              onPressedFn: () => AwesomeDialog(
+                context: context,
+                dialogType: DialogType.warning,
+                title: 'Logout',
+                desc: 'Are you sure want to logout?',
+                btnCancelOnPress: () {},
+                btnOkOnPress: () {
+                  // AuthService.signOut();
+                  Preference.logoutFn();
+                  Get.offAllNamed(Routes.LOGIN);
+                },
+              ).show(),
+              btnTxt: 'Logout',
+              txtColor: Colors.white,
+              txtWeight: FontWeight.w400,
+              btnIcon: 'logout',
+              btnColor: AppClrs.kAccentClr,
+              btnSize: Size(150.w, 56.h),
+            ),
             addH(50.h),
           ],
         ),

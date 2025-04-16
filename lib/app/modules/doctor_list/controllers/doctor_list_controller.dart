@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 
 import '../../../data/strings.dart';
 import '../../../models/doctor.dart';
+import '../../../models/speciality.dart';
 import '../../../utils/methods.dart';
 
 class DoctorListController extends GetxController {
+  late SpecialityModel speciality;
   RxBool doctorsLF = false.obs;
 
   List<DoctorModel> doctorList = [];
@@ -13,15 +15,22 @@ class DoctorListController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    speciality = Get.arguments;
+    print(speciality.id);
     fetchDoctors();
   }
 
   void fetchDoctors() async {
     doctorsLF.value = true;
     try {
-      final collection = FirebaseFirestore.instance.collection(
-        AppStrings.kDoctors,
-      );
+      final collection = FirebaseFirestore.instance
+          .collection(
+            AppStrings.kDoctors,
+          )
+          .where(
+            AppStrings.kSpecialityId,
+            isEqualTo: speciality.id,
+          );
       try {
         final querySS = await collection.get();
         doctorList = querySS.docs.map((doc) {

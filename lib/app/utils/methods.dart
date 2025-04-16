@@ -8,6 +8,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -65,10 +66,20 @@ class Methods {
 
   static void showLoading() {
     if (!EasyLoading.isShow) {
-      EasyLoading.show(
-        status: 'Loading...',
-        dismissOnTap: false,
-      );
+      EasyLoading.instance
+        ..contentPadding = EdgeInsets.zero
+        ..indicatorWidget = Lottie.asset(
+          'assets/jsons/loading.json',
+          fit: BoxFit.contain,
+        )
+        ..loadingStyle = EasyLoadingStyle.custom
+        ..backgroundColor = Colors.transparent
+        ..indicatorColor = Colors.transparent
+        ..textColor = Colors.black
+        ..userInteractions = false
+        ..dismissOnTap = false
+        ..boxShadow = [];
+      EasyLoading.show();
     }
   }
 

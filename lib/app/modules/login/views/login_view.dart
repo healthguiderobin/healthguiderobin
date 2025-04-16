@@ -7,6 +7,7 @@ import '../../../data/prefs.dart';
 import '../../../designs/custom_btn.dart';
 import '../../../designs/custom_field.dart';
 import '../../../utils/methods.dart';
+import '../../../widgets/body_widget.dart';
 import '../../../widgets/common_widgets.dart';
 import '../../../widgets/field_title.dart';
 import '../../../widgets/helper.dart';
@@ -30,9 +31,9 @@ class LoginView extends GetView<LoginController> {
               children: [
                 addH(100.h),
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(30.r),
+                  borderRadius: BorderRadius.circular(10.r),
                   child: Image.asset(
-                    'assets/app_logo.jpg',
+                    'assets/app_logo.png',
                     width: 180.w,
                     height: 180.h,
                     fit: BoxFit.fitWidth,
@@ -114,21 +115,22 @@ class LoginView extends GetView<LoginController> {
                         ],
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {},
-                      // () => Get.toNamed(
-                      //   Routes.FORGOT_PASSWORD,
-                      //   arguments: controller.emailCon.text,
-                      // ),
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                          color: AppClrs.kPrimaryTxtClr,
-                        ),
-                      ),
-                    ),
+                    // TextButton(
+                    //   onPressed: () {
+                    //     showModalBottomSheet(
+                    //       context: context,
+                    //       builder: (context) => PasswordRecoverySheet(),
+                    //     );
+                    //   },
+                    //   child: Text(
+                    //     'Forgot Password?',
+                    //     style: TextStyle(
+                    //       fontSize: 14.sp,
+                    //       fontWeight: FontWeight.w400,
+                    //       color: AppClrs.kPrimaryTxtClr,
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
                 addH(60.h),
@@ -166,13 +168,39 @@ class LoginView extends GetView<LoginController> {
                     );
                     controller.loginUser();
                   },
-                  btnTxt: 'Sign in',
+                  btnTxt: 'Login',
                   btnBorderRadius: 30.r,
                   btnSize: Size(130.w, 56.h),
                 ),
                 addH(50.h),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PasswordRecoverySheet extends StatelessWidget {
+  const PasswordRecoverySheet({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(10.r),
+        ),
+      ),
+      child: BodyWidget(
+        noBack: true,
+        title: 'Password Recovery',
+        child: Expanded(
+          child: Column(
+            children: [],
           ),
         ),
       ),

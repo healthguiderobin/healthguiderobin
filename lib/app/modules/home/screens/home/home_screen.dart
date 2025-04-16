@@ -60,88 +60,96 @@ class _HomeScreenState extends State<HomeScreen> {
                 // hCon.fetchHighlights();
               },
               color: AppClrs.kAccentClr,
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Obx(() {
-                      if (hCon.bannersLF.value) {
-                        return Shimmer.fromColors(
-                          child: Container(
-                            width: Get.width,
-                            height: 230.h,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.vertical(
-                                bottom: Radius.circular(20.r),
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  hCon.fetchBanners();
+                  hCon.fetchPosts();
+                },
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Obx(() {
+                        if (hCon.bannersLF.value) {
+                          return Shimmer.fromColors(
+                            child: Container(
+                              width: Get.width,
+                              height: 230.h,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.vertical(
+                                  bottom: Radius.circular(20.r),
+                                ),
                               ),
                             ),
-                          ),
-                          baseColor: AppClrs.kBackgroundClr,
-                          highlightColor: AppClrs.kAccentClr,
-                        );
-                      } else {
-                        if (hCon.bannerList.isEmpty) {
-                          return Container(
-                            height: 230.h,
-                            decoration: BoxDecoration(
-                              color: AppClrs.kPrimaryClr,
-                              borderRadius: BorderRadius.vertical(
-                                bottom: Radius.circular(20.r),
-                              ),
-                            ),
+                            baseColor: AppClrs.kBackgroundClr,
+                            highlightColor: Colors.grey,
                           );
                         } else {
-                          return BannerSlider(
-                            banners: hCon.bannerList,
-                          );
-                        }
-                      }
-                    }),
-                    addH(10.h),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10.w,
-                      ),
-                      child: Column(
-                        children: [
-                          Obx(() {
-                            if (hCon.postsLF.value) {
-                              return Padding(
-                                padding: EdgeInsets.only(top: 200.h),
-                                child: Center(
-                                  child: CircularProgressIndicator(),
+                          if (hCon.bannerList.isEmpty) {
+                            return Container(
+                              height: 230.h,
+                              decoration: BoxDecoration(
+                                color: AppClrs.kPrimaryClr,
+                                borderRadius: BorderRadius.vertical(
+                                  bottom: Radius.circular(20.r),
                                 ),
-                              );
-                            } else {
-                              if (hCon.postList.isEmpty) {
+                              ),
+                            );
+                          } else {
+                            return BannerSlider(
+                              banners: hCon.bannerList,
+                            );
+                          }
+                        }
+                      }),
+                      addH(10.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
+                        ),
+                        child: Column(
+                          children: [
+                            Obx(() {
+                              if (hCon.postsLF.value) {
                                 return Padding(
                                   padding: EdgeInsets.only(top: 200.h),
                                   child: Center(
-                                    child: TitleTxt(
-                                      title: 'No Posts Available',
-                                    ),
+                                    child: CircularProgressIndicator(),
                                   ),
                                 );
                               } else {
-                                return ListView.builder(
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: hCon.postList.length,
-                                  itemBuilder: (context, index) {
-                                    return PostItem(
-                                      post: hCon.postList[index],
-                                    );
-                                  },
-                                );
+                                if (hCon.postList.isEmpty) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(top: 200.h),
+                                    child: Center(
+                                      child: TitleTxt(
+                                        title: 'No Posts Available',
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  return ListView.builder(
+                                    shrinkWrap: true,
+                                    primary: false,
+                                    itemCount: hCon.postList.length,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      return PostItem(
+                                        post: hCon.postList[index],
+                                      );
+                                    },
+                                  );
+                                }
                               }
-                            }
-                          }),
-                        ],
+                            }),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                      addH(10.h),
+                    ],
+                  ),
                 ),
               ),
             ),

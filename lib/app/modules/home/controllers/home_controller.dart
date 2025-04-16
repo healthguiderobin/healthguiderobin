@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../../../data/strings.dart';
 import '../../../models/banner.dart';
 import '../../../models/post.dart';
-import '../../../utils/methods.dart';
 
 class HomeController extends GetxController {
   final zdCon = ZoomDrawerController();
@@ -31,17 +30,10 @@ class HomeController extends GetxController {
       final collection = FirebaseFirestore.instance.collection(
         AppStrings.kBanners,
       );
-      try {
-        final querySS = await collection.get();
-        bannerList = querySS.docs.map((doc) {
-          return BannerModel.fromJson(doc.data());
-        }).toList();
-      } catch (e) {
-        Methods.showSnackbar(
-          title: 'Failed to fetch banners!',
-          msg: 'Something went wrong. Please try again later.',
-        );
-      }
+      final querySS = await collection.get();
+      bannerList = querySS.docs.map((doc) {
+        return BannerModel.fromJson(doc.data());
+      }).toList();
     } finally {
       bannersLF.value = false;
     }
@@ -53,17 +45,10 @@ class HomeController extends GetxController {
       final collection = FirebaseFirestore.instance.collection(
         AppStrings.kPosts,
       );
-      try {
-        final querySS = await collection.get();
-        postList = querySS.docs.map((doc) {
-          return PostModel.fromJson(doc.data());
-        }).toList();
-      } catch (e) {
-        Methods.showSnackbar(
-          title: 'Failed to fetch posts!',
-          msg: 'Something went wrong. Please try again later.',
-        );
-      }
+      final querySS = await collection.get();
+      postList = querySS.docs.map((doc) {
+        return PostModel.fromJson(doc.data());
+      }).toList();
     } finally {
       postsLF.value = false;
     }

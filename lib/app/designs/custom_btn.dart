@@ -64,6 +64,8 @@ class CustomBtn extends StatelessWidget {
             SvgPicture.asset(
               'assets/svgs/${btnIcon!}.svg',
               fit: BoxFit.fill,
+              width: 22.w,
+              height: 22.h,
               colorFilter: ColorFilter.mode(
                 txtColor ?? AppClrs.kWhiteClr,
                 BlendMode.srcIn,

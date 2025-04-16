@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:see_more/see_more_widget.dart';
 
 import '../../../../data/clrs.dart';
 import '../../../../designs/custom_img.dart';
@@ -57,7 +58,9 @@ class PostItem extends StatelessWidget {
                     addH(5.h),
                     // post time
                     TitleTxt(
-                      title: post.createdAt.toDate().toString(),
+                      title: Methods.formatTimestamp(
+                        post.createdAt,
+                      ),
                       fSize: 14.sp,
                     ),
                   ],
@@ -71,47 +74,69 @@ class PostItem extends StatelessWidget {
               fSize: 16.sp,
             ),
             addH(10.h),
-            // post image
-            InkWell(
-              onTap: () {
-                Get.toNamed(
-                  Routes.POST_DETAILS,
-                  arguments: post,
-                );
-              },
-              child: Stack(
-                alignment: Alignment.center,
+            // post text
+            SeeMoreWidget(
+              post.body,
+              animationDuration: const Duration(
+                milliseconds: 500,
+              ),
+              seeMoreText: '...See More',
+              seeMoreStyle: TextStyle(
+                color: AppClrs.kPrimaryClr,
+              ),
+              seeLessStyle: TextStyle(
+                color: AppClrs.kAccentClr,
+              ),
+              trimLength: 80,
+            ),
+            addH(10.h),
+            // post video
+            if (post.videoThumb.isNotEmpty && post.videoLink.isNotEmpty)
+              Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  // blur image
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10.r),
-                    child: CustomImg(
-                      imgUrl: post.videoThumb,
-                      imgWidth: Get.width,
-                      imgHeight: 200.h,
-                      imgFit: BoxFit.cover,
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(
+                        Routes.POST_DETAILS,
+                        arguments: post,
+                      );
+                    },
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        // blur image
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10.r),
+                          child: CustomImg(
+                            imgUrl: post.videoThumb,
+                            imgWidth: Get.width,
+                            imgHeight: 200.h,
+                            imgFit: BoxFit.cover,
+                          ),
+                        ),
+                        // play button
+                        Center(
+                          child: CircleAvatar(
+                            radius: 30.r,
+                            backgroundColor: AppClrs.kPrimaryClr,
+                            child: Icon(
+                              Icons.play_arrow,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  // play button
-                  Center(
-                    child: CircleAvatar(
-                      radius: 30.r,
-                      backgroundColor: AppClrs.kPrimaryClr,
-                      child: Icon(
-                        Icons.play_arrow,
-                        color: Colors.white,
-                      ),
-                    ),
+                  addH(5.h),
+                  Divider(
+                    thickness: 0.5.w,
+                    color: AppClrs.kPrimaryClr,
                   ),
+                  addH(5.h),
                 ],
               ),
-            ),
-            addH(5.h),
-            Divider(
-              thickness: 0.5.w,
-              color: AppClrs.kPrimaryClr,
-            ),
-            addH(5.h),
             // image gallery
             SizedBox(
               height: 100.h,

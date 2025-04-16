@@ -25,6 +25,7 @@ class CustomField extends StatefulWidget {
   final InputBorder? inputBrdr;
   final TextInputAction? customAction;
   final Function(String)? onChangedFn;
+  final TextAlign? textAlign;
   const CustomField(
       {Key? key,
       required this.textCon,
@@ -47,7 +48,8 @@ class CustomField extends StatefulWidget {
       this.autoFocusFlag,
       this.inputBrdr,
       this.onChangedFn,
-      this.customAction})
+      this.customAction,
+      this.textAlign})
       : super(key: key);
 
   @override
@@ -75,6 +77,7 @@ class _CustomFieldState extends State<CustomField> {
         //       ]
         //     : null,
         autofocus: widget.autoFocusFlag ?? false,
+        textAlign: widget.textAlign ?? TextAlign.start,
         enabled: widget.isEnabled,
         onChanged: widget.onChangedFn,
         cursorColor: AppClrs.kPrimaryClr,

@@ -32,7 +32,7 @@ class HomeView extends GetView<HomeController> {
       slideWidth: Get.width * 0.85,
       // menuBackgroundColor: Colors.transparent,
       // menuScreenOverlayColor: AppClrs.kFFFBF4,
-      menuBackgroundColor: AppClrs.kSecondaryClr,
+      menuBackgroundColor: AppClrs.kPrimaryClr,
       // menuScreenOverlayColor: AppClrs.kPrimaryClr,
       menuScreen: DrawerView(),
       mainScreen: UpgradeAlert(

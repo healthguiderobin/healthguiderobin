@@ -1,3 +1,4 @@
+import 'package:bordered_text/bordered_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -64,7 +65,7 @@ class _BannerSliderState extends State<BannerSlider> {
           ),
           Positioned(
             bottom: 10.h,
-            right: 10.w,
+            left: widget.banners.length * 22.w,
             child: Container(
               width: Get.width - 100.w,
               padding: EdgeInsets.only(
@@ -77,20 +78,30 @@ class _BannerSliderState extends State<BannerSlider> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TitleTxt(
-                    title: widget.banners[activeIndex].title,
-                    maxL: 1,
-                    fSize: 14.sp,
-                    txtClr: Colors.white,
-                    fWeight: FontWeight.w600,
+                  BorderedText(
+                    strokeWidth: 2.0,
+                    child: Text(
+                      widget.banners[activeIndex].title,
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                   addH(5.h),
-                  TitleTxt(
-                    title: widget.banners[activeIndex].subtitle,
-                    maxL: 1,
-                    fSize: 11.sp,
-                    txtClr: Colors.white,
-                    fWeight: FontWeight.w400,
+                  BorderedText(
+                    strokeWidth: 1.0,
+                    child: Text(
+                      widget.banners[activeIndex].subtitle,
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -103,8 +114,10 @@ class _BannerSliderState extends State<BannerSlider> {
               activeIndex: activeIndex,
               count: widget.banners.length,
               effect: WormEffect(
-                dotColor: AppClrs.kPrimaryClr,
-                activeDotColor: AppClrs.kAccentClr,
+                dotWidth: 14.w,
+                dotHeight: 14.h,
+                dotColor: AppClrs.kAccentClr,
+                activeDotColor: AppClrs.kPrimaryClr,
               ),
             ),
           ),

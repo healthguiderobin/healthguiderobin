@@ -98,11 +98,13 @@ class LoginController extends GetxController {
         deviceId: deviceId,
         email: user.email ?? '',
         name: user.displayName ?? '',
+        fatherName: '',
         phoneNumber: user.phoneNumber ?? '',
         photoURL: user.photoURL ?? '',
         address: '',
         userQrCode: '',
         fbToken: fToken,
+        isDisabled: false,
         createdAt: await fetchServerTimestamp(),
       );
       await docRef.set(usrM.toJson());
@@ -130,7 +132,7 @@ class LoginController extends GetxController {
 
   void setUserAndGoHome() async {
     Preference.setLoggedInFlag(true);
-    Preference.storeUserDetails(userModel);
+    Preference.setUserDetails(userModel);
     Get.offAllNamed(Routes.HOME);
   }
 }

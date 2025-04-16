@@ -30,7 +30,7 @@ class DoctorsController extends GetxController {
         specialityList.sort((a, b) => a.name.compareTo(b.name));
       } catch (e) {
         Methods.showSnackbar(
-          title: 'Failed to fetch doctor list!',
+          title: 'Failed to fetch specialities!',
           msg: 'Something went wrong. Please try again later.',
         );
       }

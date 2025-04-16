@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:healthguiderobin/app/widgets/helper.dart';
+import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 
 import '../../../../data/clrs.dart';
 import '../../../../designs/custom_btn.dart';
+import 'scan_result.dart';
 
 class QRScannerScreen extends StatefulWidget {
   @override
@@ -23,33 +26,18 @@ class _QRScannerScreenState extends State<QRScannerScreen>
   QRViewController? controller;
   String? scannedData;
 
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  PermissionStatus status = PermissionStatus.granted;
+  PermissionStatus status = PermissionStatus.denied;
 
   @override
   void initState() {
     super.initState();
     checkCameraPermission();
-    // Initialize the animation controller
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 2),
-    )..repeat();
-
-    // Define the animation (top to bottom)
-    _animation = Tween<double>(begin: 0, end: 290).animate(_controller)
-      ..addListener(() {
-        setState(() {}); // Trigger rebuild on animation update
-      });
   }
 
   checkCameraPermission() async {
     status = await Permission.camera.status;
-    if (status.isDenied || status.isRestricted || status.isPermanentlyDenied) {
-      await Permission.camera.request();
-      status = await Permission.camera.status;
+    if (status.isGranted) {
+      setState(() {});
     }
   }
 
@@ -58,12 +46,6 @@ class _QRScannerScreenState extends State<QRScannerScreen>
     super.reassemble();
     controller?.pauseCamera();
     controller?.resumeCamera();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose(); // Dispose the controller when the widget is removed
-    super.dispose();
   }
 
   @override
@@ -110,21 +92,20 @@ class _QRScannerScreenState extends State<QRScannerScreen>
                           width: 300.w,
                           height: 300.h,
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white, width: 2),
-                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 2,
+                            ),
                           ),
                         ),
                       ),
                       if (scannedData == null)
-                        Positioned(
-                          left: (MediaQuery.of(context).size.width - 280.w) / 2,
-                          top:
-                              (MediaQuery.of(context).size.height - 595.h) / 2 +
-                                  _animation.value,
-                          child: Container(
-                            width: 280.w,
-                            height: 2.h,
-                            color: Colors.red,
+                        Center(
+                          child: Lottie.asset(
+                            'assets/jsons/scan.json',
+                            fit: BoxFit.fill,
+                            height: 300.h,
+                            width: 300.w,
                           ),
                         ),
                       // Flash icon
@@ -175,10 +156,11 @@ class _QRScannerScreenState extends State<QRScannerScreen>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      addH(5.h),
                       Text(
-                        scannedData ?? 'Scan a QR Code',
+                        'Scan a QR Code',
                       ),
-                      addH(20.h),
+                      addH(15.h),
                       // scan again button
                       if (scannedData != null)
                         CustomBtn(
@@ -200,15 +182,28 @@ class _QRScannerScreenState extends State<QRScannerScreen>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'No camera permissions',
+                    'Enable camera permissions',
                   ),
                   addH(20.h),
                   status.isPermanentlyDenied
-                      ? Text('Please enable camera permissions in settings')
+                      ? Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Please enable camera permissions in settings',
+                            ),
+                            addH(20.h),
+                            CustomBtn(
+                              btnTxt: 'Open Settings',
+                              onPressedFn: () {
+                                openAppSettings();
+                              },
+                            ),
+                          ],
+                        )
                       : CustomBtn(
                           btnTxt: 'Request Permissions',
                           onPressedFn: () async {
-                            print('Camera status: $status');
                             await Permission.camera.request();
                             status = await Permission.camera.status;
                             if (status.isGranted) {
@@ -229,8 +224,16 @@ class _QRScannerScreenState extends State<QRScannerScreen>
         scannedData = scanData.code;
       });
       controller.pauseCamera();
-      print('Scanned Data: ${scanData.code}');
-      // Navigator.pop(context, scannedData); // Return scanned data to Home
+      if (scannedData != null) {
+        showModalBottomSheet(
+          context: context,
+          // isDismissible: false,
+          // enableDrag: false,
+          builder: (context) => ScanResult(
+            scannedData: scannedData!,
+          ),
+        );
+      }
     });
   }
 }

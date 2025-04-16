@@ -10,6 +10,7 @@ class Preference {
   static const loggedInFlag = 'loginFlag';
 
   static const userDetails = 'userDetails';
+  static const userDP = 'userDP';
   static const rememberMeFlag = 'rememberMeFlag';
   static const loginEmail = 'loginEmail';
   static const loginPass = 'loginPass';
@@ -21,15 +22,21 @@ class Preference {
   static void setLoggedInFlag(bool value) => prefs.write(loggedInFlag, value);
 
   // get
-  static UserModel fetchUserDetails() {
+  static UserModel getUserDetails() {
     var result = prefs.read(userDetails);
     return UserModel.fromJson(json.decode(result));
   }
 
   // set
-  static void storeUserDetails(UserModel value) {
+  static void setUserDetails(UserModel value) {
     prefs.write(userDetails, json.encode(value.toJson()));
   }
+
+  // get dp
+  static String getUserDP() => prefs.read(userDP) ?? '';
+
+  // set dp
+  static void setUserDP(String value) => prefs.write(userDP, value);
 
   static bool getRememberMeFlag() => prefs.read(rememberMeFlag) ?? false;
 
